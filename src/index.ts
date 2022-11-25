@@ -1,9 +1,11 @@
 import {Request, Response} from 'express';
 import {Service} from './service/service';
 import {SERVER_PORT} from './const/api.const';
+import { Data } from './service/data';
 
 const express = require('express');
 const service = new Service('1.0.0');
+const data = new Data('1.0.0');
 
 const app = express();
 app.use(express.json());

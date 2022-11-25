@@ -3,7 +3,7 @@
   "scripts": {
     "build": "npm test && npx tsc",
     "start": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "dependencies": {
     "@js-joda/core": "^5.4.2",

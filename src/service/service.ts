@@ -17,4 +17,5 @@ export class Service {
 
         return new Healthcheck(author, company, this.identifier);
     }
+
 }
