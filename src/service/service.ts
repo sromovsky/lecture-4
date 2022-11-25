@@ -1,7 +1,7 @@
-import {Healthcheck} from '../model/Healthcheck';
-import {Person} from '../model/Person';
-import {Company} from '../model/Company';
-import {Address} from '../model/Address';
+import {Healthcheck} from '../model/initial/Healthcheck';
+import {Person} from '../model/initial/Person';
+import {University} from '../model/initial/University';
+import {Address} from '../model/initial/Address';
 
 export class Service {
     private readonly identifier: string;
@@ -11,9 +11,9 @@ export class Service {
     }
 
     healthcheck(): Healthcheck {
-        const author = new Person('Tomáš', 'Šromovský');
-        const companyAddress = new Address('Bajkalská', 28, 'Bratislava');
-        const company = new Company('PosAm, spol. s r.o.', companyAddress);
+        const author = new Person('David', 'Birošík');
+        const companyAddress = new Address('Dolnozemská Cesta', 1, 'Bratislava');
+        const company = new University('Ekonomická Univerzita v Bratislave', companyAddress);
 
         return new Healthcheck(author, company, this.identifier);
     }
