@@ -1,5 +1,5 @@
-import {describe, expect, test, beforeEach} from '@jest/globals';
-import {Helper} from '../service/helper';
+import { describe, expect, test, beforeEach } from '@jest/globals';
+import { Helper } from '../service/helper';
 import { TestData } from './testdata';
 
 describe('Service', () => {
@@ -24,6 +24,10 @@ describe('Service', () => {
 
     test('getObject() test', () => {
         expect(Helper.getObject(testData.e, 1)).toStrictEqual([testData.e[0]]);
+    });
+
+    test('generateInviteesArray() test', () => {
+        expect(Helper.generateInviteesArray(testData.e, [1, 2])).toEqual([{ "firstName": "Jozef", "id": 1, "lastName": "Mak", "position": "CEO" }, { "firstName": "Stano", "id": 2, "lastName": "Vysoký", "position": "CEE" }]);
     });
 
 });

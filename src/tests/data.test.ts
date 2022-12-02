@@ -1,6 +1,6 @@
-import {describe, expect, test, beforeEach} from '@jest/globals';
+import { describe, expect, test, beforeEach } from '@jest/globals';
 import { Duration, LocalDateTime } from '@js-joda/core';
-import {TestData} from './testdata';
+import { TestData } from './testdata';
 
 describe('Service', () => {
 

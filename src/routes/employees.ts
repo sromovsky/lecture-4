@@ -1,5 +1,5 @@
 import { Data } from "../service/data";
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 import { MISSINGREQPARAM, NOEMPLOYEE } from "../const/error.const";
 import { EMPLOYEES } from "../const/routes.const";
 import { Helper } from "../service/helper";
@@ -13,7 +13,7 @@ export abstract class Employees {
         app.get(`/${EMPLOYEES}`, (req: Request, res: Response) => {
             res.send(data.e);
         });
-        
+
         app.get(`/${EMPLOYEES}/:id`, (req: Request, res: Response) => {
             const index: number = Helper.arrayIdSearch(data.e, req.params.id);
             if (index != -1) {
@@ -24,9 +24,9 @@ export abstract class Employees {
         });
 
         app.post(`/${EMPLOYEES}`, (req: Request, res: Response) => {
-            if (req.body.firstName !== undefined && req.body.lastName !== undefined && req.body.position !== undefined) {
+            if (req.body.firstName !== undefined || req.body.lastName !== undefined || req.body.position !== undefined) {
                 const id = Helper.getNextId(data.e);
-                const newEmployee = new Employee(id ,req.body.firstName, req.body.lastName, req.body.position);
+                const newEmployee = new Employee(id, req.body.firstName, req.body.lastName, req.body.position);
                 data.e.push(newEmployee);
                 res.status(200).send(newEmployee);
             } else {
@@ -35,7 +35,7 @@ export abstract class Employees {
         });
 
         app.delete(`/${EMPLOYEES}/:id`, (req: Request, res: Response) => {
-            const removedEmployee =Helper.getObject(data.e, req.params.id)
+            const removedEmployee = Helper.getObject(data.e, req.params.id)
             if (removedEmployee.length > 0) {
                 data.e = data.e.filter(user => user.getId() !== Number(req.params.id));
                 res.status(200).send(removedEmployee);

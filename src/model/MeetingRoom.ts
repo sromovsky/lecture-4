@@ -7,7 +7,7 @@ export class MeetingRoom {
         this.id = id;
         this.name = name;
         this.capacity = capacity;
-    } 
+    }
 
     getId() {
         return this.id;

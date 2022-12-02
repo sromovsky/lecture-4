@@ -1,6 +1,6 @@
-import {Request, Response} from 'express';
-import {Service} from './service/service';
-import {SERVER_PORT} from './const/api.const';
+import { Request, Response } from 'express';
+import { Service } from './service/service';
+import { SERVER_PORT } from './const/api.const';
 import { Data } from './service/data';
 import { Employees } from './routes/employees';
 import { Meetings } from './routes/meetings';

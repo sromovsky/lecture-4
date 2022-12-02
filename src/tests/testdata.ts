@@ -9,7 +9,7 @@ export class TestData {
     constructor(identifier: string) {
         this.identifier = identifier;
     }
-    
+
     empl1 = new Employee(1, "Jozef", "Mak", "CEO");
     empl2 = new Employee(2, "Stano", "Vysoký", "CEE");
     e: Employee[] = [this.empl1, this.empl2];

@@ -1,5 +1,5 @@
-import {describe, expect, test, beforeEach} from '@jest/globals';
-import {Service} from '../service/service';
+import { describe, expect, test, beforeEach } from '@jest/globals';
+import { Service } from '../service/service';
 
 describe('Service', () => {
 

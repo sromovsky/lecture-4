@@ -1,4 +1,4 @@
-import {describe, expect, test} from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import { InvitedParser } from '../../service/parsers/invitedParser';
 import { TestData } from '../testdata';
 
@@ -12,8 +12,8 @@ describe('Service', () => {
 
     test('Test prettyPrintDateTime()', () => {
         expect(InvitedParser.prettyPrintInvited([])).toBe("No invitees");
-        expect(InvitedParser.prettyPrintInvited([testData.empl1])).toBe("Jozef Mak");
-        expect(InvitedParser.prettyPrintInvited([testData.empl1, testData.empl2])).toBe("Jozef Mak, Stano Vysoký");
+        expect(InvitedParser.prettyPrintInvited([testData.empl1])).toBe("Jozef Mak (CEO)");
+        expect(InvitedParser.prettyPrintInvited([testData.empl1, testData.empl2])).toBe("Jozef Mak (CEO), Stano Vysoký (CEE)");
     });
 
 

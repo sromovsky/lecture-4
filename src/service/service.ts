@@ -1,7 +1,7 @@
-import {Healthcheck} from '../model/initial/Healthcheck';
-import {Person} from '../model/initial/Person';
-import {University} from '../model/initial/University';
-import {Address} from '../model/initial/Address';
+import { Healthcheck } from '../model/initial/Healthcheck';
+import { Person } from '../model/initial/Person';
+import { University } from '../model/initial/University';
+import { Address } from '../model/initial/Address';
 
 export class Service {
     private readonly identifier: string;
