@@ -4,7 +4,6 @@ import {SERVER_PORT} from './const/api.const';
 import { Data } from './service/data';
 import { Buildings } from './routes/buildings';
 import { Employees } from './routes/employees';
-//import { mongodb } from './service/mongodb';
 
 
 const express = require('express');
