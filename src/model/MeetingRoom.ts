@@ -1,5 +1,3 @@
-import { Floor } from "./Floor";
-
 export class MeetingRoom {
     private id: number;
     private name: string;

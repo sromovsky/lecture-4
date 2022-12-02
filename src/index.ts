@@ -2,7 +2,6 @@ import {Request, Response} from 'express';
 import {Service} from './service/service';
 import {SERVER_PORT} from './const/api.const';
 import { Data } from './service/data';
-import { Buildings } from './routes/buildings';
 import { Employees } from './routes/employees';
 import { Meetings } from './routes/meetings';
 
@@ -13,7 +12,6 @@ const data = new Data('1.0.0');
 
 const app = express();
 app.use(express.json());
-Buildings.addEndpoints(app);
 Employees.addEndpoints(app);
 Meetings.addEndpoints(app);
 

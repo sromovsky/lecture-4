@@ -1,10 +1,5 @@
 import {describe, expect, test, beforeEach} from '@jest/globals';
 import { Duration, LocalDateTime } from '@js-joda/core';
-import { Building } from '../model/Building';
-import { Employee } from '../model/Employee';
-import { Floor } from '../model/Floor';
-import { Meeting } from '../model/Meeting';
-import { MeetingRoom } from '../model/MeetingRoom';
 import {TestData} from './testdata';
 
 describe('Service', () => {
@@ -13,39 +8,6 @@ describe('Service', () => {
 
     beforeEach(() => {
         testData = new TestData('0.0.1');
-    });
-
-    //Building test
-    test('Test building getId()', () => {
-        expect(testData.b1.getId()).toBe(1);
-    });
-    test('Test building getName()', () => {
-        expect(testData.b1.getName()).toBe("CBC 3");
-    });
-    test('Test building getAddress()', () => {
-        expect(testData.b1.getAddress()).toBe("Karadžičová 14");
-    });
-    test('Test building getCity()', () => {
-        expect(testData.b1.getCity()).toBe("Bratislava");
-    });
-    test('Test building getCountry()', () => {
-        expect(testData.b1.getCountry()).toBe("Slovakia");
-    });
-    test('Test building getFloors()', () => {
-        expect(testData.b1.getFloors()).toStrictEqual([testData.b1f1, testData.b1f2]);
-    });
-    test('Test building getFloor()', () => {
-        expect(testData.b1.getFloor(1)).toBe(testData.b1f1);
-    });
-    test('Test building getPritableBuilding()', () => {
-        expect(testData.b1.getPritableBuilding()).toStrictEqual({
-            "id": 1,
-            "name": "CBC 3",
-            "address": "Karadžičová 14",
-            "city": "Bratislava",
-            "country": "Bratislava",
-            "floors": 2
-        });
     });
 
     //Employee test
@@ -62,26 +24,15 @@ describe('Service', () => {
         expect(testData.empl1.getPosition()).toBe("CEO");
     });
 
-    //Floor test
-    test('Test floor getId()', () => {
-        expect(testData.b1f1.getId()).toBe(1);
-    });
-    test('Test floor getFloorNum()', () => {
-        expect(testData.b1f1.getFloorNum()).toBe(2);
-    });
-    test('Test floor getMeetingRooms()', () => {
-        expect(testData.b1f1.getMeetingRooms()).toStrictEqual([testData.b1f1mr1, testData.b1f1mr2]);
-    });
-
     //MeetingRoom test
     test('Test floor getId()', () => {
-        expect(testData.b1f2mr2.getId()).toBe(4);
+        expect(testData.mrItadori.getId()).toBe(4);
     });
     test('Test floor getName()', () => {
-        expect(testData.b1f2mr2.getName()).toBe("Itadori");
+        expect(testData.mrItadori.getName()).toBe("Itadori");
     });
     test('Test floor getCapacity()', () => {
-        expect(testData.b1f2mr2.getCapacity()).toBe(10);
+        expect(testData.mrItadori.getCapacity()).toBe(10);
     });
 
     //Meeting test
@@ -111,6 +62,6 @@ describe('Service', () => {
         expect(testData.meeting1.getInvited()).toStrictEqual([]);
     });
     test('Test meeting getMeetingRoom()', () => {
-        expect(testData.meeting1.getMeetingRoom()).toBe(testData.b1f1mr1);
+        expect(testData.meeting1.getMeetingRoom()).toBe(testData.mrItadori);
     });
 });
