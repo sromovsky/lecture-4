@@ -19,7 +19,7 @@ export abstract class Employees {
             if (index != -1) {
                 res.status(200).send(data.e[index]);
             } else {
-                res.status(400).send(NOEMPLOYEE);
+                res.status(404).send(NOEMPLOYEE);
             }
         });
 
@@ -40,7 +40,7 @@ export abstract class Employees {
                 data.e = data.e.filter(user => user.getId() !== Number(req.params.id));
                 res.status(200).send(removedEmployee);
             } else {
-                res.status(400).send(NOEMPLOYEE);
+                res.status(404).send(NOEMPLOYEE);
             }
         });
 
