@@ -29,6 +29,9 @@ describe('Service', () => {
         expect(DateTimeParser.parseDuration("1 hours")).toEqual(Duration.ofHours(1));
         expect(DateTimeParser.parseDuration("1 minute")).toEqual(Duration.ofMinutes(1));
         expect(DateTimeParser.parseDuration("1 minutes")).toEqual(Duration.ofMinutes(1));
+    });
+
+    test('Test parseDuration() invalid input', () => {
         expect(DateTimeParser.parseDuration("1 x")).toEqual(null);
     });
 

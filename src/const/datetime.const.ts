@@ -1,0 +1,1 @@
+export const INTERVALFIX = ":00.000Z";

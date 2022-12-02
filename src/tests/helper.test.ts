@@ -1,4 +1,6 @@
 import { describe, expect, test, beforeEach } from '@jest/globals';
+import { Duration, LocalDateTime } from '@js-joda/core';
+import { Meeting } from '../model/Meeting';
 import { Helper } from '../service/helper';
 import { TestData } from './testdata';
 
@@ -28,6 +30,21 @@ describe('Service', () => {
 
     test('generateInviteesArray() test', () => {
         expect(Helper.generateInviteesArray(testData.e, [1, 2])).toEqual([{ "firstName": "Jozef", "id": 1, "lastName": "Mak", "position": "CEO" }, { "firstName": "Stano", "id": 2, "lastName": "Vysoký", "position": "CEE" }]);
+    });
+
+    test('validateMeeting() test - FALSE', () => {
+        const invalidMeeting: Meeting = new Meeting(0, "Invalid meeting", LocalDateTime.parse("2022-11-25T09:00"), Duration.ofHours(1), testData.empl1, [testData.empl2], testData.mrItadori)
+        expect(Helper.validateMeeting(testData.m, invalidMeeting)).toEqual(false);
+    });
+
+    test('validateMeeting() test - TRUE (different meeting room)', () => {
+        const validMeeting: Meeting = new Meeting(0, "Valid meeting", LocalDateTime.parse("2022-11-25T09:00"), Duration.ofHours(1), testData.empl1, [testData.empl2], testData.mrBatman)
+        expect(Helper.validateMeeting(testData.m, validMeeting)).toEqual(true);
+    });
+
+    test('validateMeeting() test - TRUE (different time)', () => {
+        const validMeeting: Meeting = new Meeting(0, "Valid meeting", LocalDateTime.parse("2022-11-25T10:00"), Duration.ofHours(1), testData.empl1, [testData.empl2], testData.mrItadori)
+        expect(Helper.validateMeeting(testData.m, validMeeting)).toEqual(true);
     });
 
 });

@@ -1,6 +1,6 @@
 import { Data } from "../service/data";
 import { Request, Response } from 'express';
-import { DURATIONPARSEFAILED, MISSINGREQPARAM, NOMEETING } from '../const/error.const';
+import { DURATIONPARSEFAILED, MISSINGREQPARAM, NOMEETING, ROOMTAKEN } from '../const/error.const';
 import { MEETINGS } from '../const/routes.const';
 import { Helper } from "../service/helper";
 import { Meeting } from "../model/Meeting";
@@ -32,8 +32,12 @@ export abstract class Meetings {
                     res.status(400).send(DURATIONPARSEFAILED);
                 } else {
                     const newMeeting: Meeting = new Meeting(nextId, req.body.name, dateTime, duration, host, invitees, mr);
-                    data.m.push(newMeeting);
-                    res.status(200).send(newMeeting.getPrettyPrintedMeetingInfo());
+                    if (Helper.validateMeeting(data.m, newMeeting)) {
+                        data.m.push(newMeeting);
+                        res.status(200).send(newMeeting.getPrettyPrintedMeetingInfo());
+                    } else {
+                        res.status(409).send(ROOMTAKEN);
+                    }
                 }
             }
 
@@ -43,6 +47,20 @@ export abstract class Meetings {
             const index: number = Helper.arrayIdSearch(data.m, Number(req.params.id));
             if (index != -1) {
                 res.status(200).send(data.m[index].getPrettyPrintedMeetingInfo());
+            } else {
+                res.status(404).send(NOMEETING);
+            }
+        });
+
+        app.put(`/${MEETINGS}/:id`, (req: Request, res: Response) => {
+            const index: number = Helper.arrayIdSearch(data.m, Number(req.params.id));
+        });
+
+        app.delete(`/${MEETINGS}/:id`, (req: Request, res: Response) => {
+            const removedMeeting: Meeting[] = Helper.getObject(data.m, req.params.id);
+            if (removedMeeting.length > 0) {
+                data.m = data.m.filter(meeting => meeting.getId() !== Number(req.params.id));
+                res.status(200).send(removedMeeting[0].getPrettyPrintedMeetingInfo());
             } else {
                 res.status(404).send(NOMEETING);
             }
