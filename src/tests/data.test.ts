@@ -25,13 +25,13 @@ describe('Service', () => {
     });
 
     //MeetingRoom test
-    test('Test floor getId()', () => {
+    test('Test meetingRoom getId()', () => {
         expect(testData.mrItadori.getId()).toBe(4);
     });
-    test('Test floor getName()', () => {
+    test('Test meetingRoom getName()', () => {
         expect(testData.mrItadori.getName()).toBe("Itadori");
     });
-    test('Test floor getCapacity()', () => {
+    test('Test meetingRoom getCapacity()', () => {
         expect(testData.mrItadori.getCapacity()).toBe(10);
     });
 
@@ -64,4 +64,19 @@ describe('Service', () => {
     test('Test meeting getMeetingRoom()', () => {
         expect(testData.meeting1.getMeetingRoom()).toBe(testData.mrItadori);
     });
+    test('Test meeting getPrettyPrintedMeetingInfo()', () => {
+        const expectedOutput = {
+            "id": 1,
+            "name": "Pohovor",
+            "startDateTime": "25.11.2022 @ 08:00",
+            "duration": "2 Hours",
+            "endDateTime": "25.11.2022 @ 10:00",
+            "host": "Jozef Mak (CEO)",
+            "inivited": "No invitees",
+            "meetingRoom": "Itadori"
+        }
+
+        expect(testData.meeting1.getPrettyPrintedMeetingInfo()).toStrictEqual(expectedOutput);
+    });
+
 });

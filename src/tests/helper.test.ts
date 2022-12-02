@@ -15,11 +15,11 @@ describe('Service', () => {
     });
 
     test('arrayIdSearch() test without result', () => {
-        expect(Helper.arrayIdSearch(testData.e, 2)).toBe(-1);
+        expect(Helper.arrayIdSearch(testData.e, 3)).toBe(-1);
     });
 
     test('getNextId() test', () => {
-        expect(Helper.getNextId(testData.e)).toBe(2);
+        expect(Helper.getNextId(testData.e)).toBe(3);
     });
 
     test('getObject() test', () => {

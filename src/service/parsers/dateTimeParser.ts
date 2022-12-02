@@ -13,13 +13,20 @@ export abstract class DateTimeParser {
           var finalString = "";
           switch(strUnit) {
                case("H"):
-                    finalString = `${strDuration} Hours`;
+                    if(strDuration == "1") {
+                         finalString = `${strDuration} Hour`;  
+                    } else {
+                         finalString = `${strDuration} Hours`;
+                    }
                     break;
                case("M"):
-                    finalString = `${strDuration} Minutes`
+                    if(strDuration == "1") {
+                         finalString = `${strDuration} Minute`;  
+                    } else {
+                         finalString = `${strDuration} Minutes`;
+                    }
                     break;
           }
           return finalString;
     }
- 
  }

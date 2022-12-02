@@ -26,7 +26,7 @@ export class Data {
 
 
     meeting1 = new Meeting(1, "Pohovor", LocalDateTime.parse("2022-11-25T08:00"), Duration.ofMinutes(30), this.empl5, [], this.mrItadori);
-    meeting2 = new Meeting(2, "Monthly Meeting", LocalDateTime.parse("2022-11-25T09:00"), Duration.ofHours(2), this.empl2, [this.empl3, this.empl4], this.mrBatman);
+    meeting2 = new Meeting(2, "Monthly Meeting", LocalDateTime.parse("2022-11-25T09:00"), Duration.ofHours(1), this.empl2, [this.empl3, this.empl4], this.mrBatman);
     m: Meeting[] = [this.meeting1, this.meeting2];
 
 }

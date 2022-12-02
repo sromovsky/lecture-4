@@ -11,7 +11,8 @@ export class TestData {
     }
     
     empl1 = new Employee(1, "Jozef", "Mak", "CEO");
-    e: Employee[] = [this.empl1];
+    empl2 = new Employee(2, "Stano", "Vysoký", "CEE");
+    e: Employee[] = [this.empl1, this.empl2];
     // Building 1 - Floor 1
     mrBatman = new MeetingRoom(1, "Batman", 4);
     mrNaruto = new MeetingRoom(2, "Naruto", 8);
