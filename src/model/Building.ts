@@ -1,13 +1,13 @@
 import { Floor } from "./Floor";
 
 export class Building {
-    private id: Number;
-    private name: String;
-    private address: String;
-    private city: String;
-    private country: String;
+    private id: number;
+    private name: string;
+    private address: string;
+    private city: string;
+    private country: string;
     private floors: Floor[];
-    constructor(id: Number, name: String, address: String, city: String, country: String, floors: Floor[]) {
+    constructor(id: number, name: string, address: string, city: string, country: string, floors: Floor[]) {
         this.id = id;
         this.name = name;
         this.address = address;

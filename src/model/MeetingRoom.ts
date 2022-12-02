@@ -1,11 +1,11 @@
 import { Floor } from "./Floor";
 
 export class MeetingRoom {
-    private id: Number;
-    private name: String;
-    private capacity: Number;
+    private id: number;
+    private name: string;
+    private capacity: number;
 
-    constructor(id: Number, name: String, capacity: Number) {
+    constructor(id: number, name: string, capacity: number) {
         this.id = id;
         this.name = name;
         this.capacity = capacity;

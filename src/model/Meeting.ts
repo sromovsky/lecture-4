@@ -3,8 +3,8 @@ import { Employee } from "./Employee";
 import { MeetingRoom } from "./MeetingRoom";
 
 export class Meeting {
-    private id: Number;
-    private name: String;
+    private id: number;
+    private name: string;
     private startDateTime: LocalDateTime;
     private duration: Duration;
     private endDateTime: LocalDateTime;
@@ -12,7 +12,7 @@ export class Meeting {
     private invited: Employee[];
     private meetingRoom: MeetingRoom;
 
-    constructor(id: Number, name: String, startDateTime: LocalDateTime, duration: Duration, host: Employee, invited: Employee[], meetingRoom: MeetingRoom) {
+    constructor(id: number, name: string, startDateTime: LocalDateTime, duration: Duration, host: Employee, invited: Employee[], meetingRoom: MeetingRoom) {
         this.id = id;
         this.name = name;
         this.startDateTime = startDateTime;

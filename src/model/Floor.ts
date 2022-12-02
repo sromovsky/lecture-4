@@ -2,10 +2,10 @@ import { Building } from "./Building";
 import { MeetingRoom } from "./MeetingRoom";
 
 export class Floor {
-    private id: Number;
-    private floorNum: Number;
+    private id: number;
+    private floorNum: number;
     private meetingRooms: MeetingRoom[];
-    constructor(id: Number, floorNum: Number, meetingRooms: MeetingRoom[]) {
+    constructor(id: number, floorNum: number, meetingRooms: MeetingRoom[]) {
         this.id = id;
         this.floorNum = floorNum;
         this.meetingRooms = meetingRooms;

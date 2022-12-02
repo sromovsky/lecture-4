@@ -1,10 +1,10 @@
 export class Employee {
-    private id: Number;
+    private id: number;
     private firstName: string;
     private lastName: string;
     private position: string;
 
-    constructor(id: Number, firstName: string, lastName: string, position: string) {
+    constructor(id: number, firstName: string, lastName: string, position: string) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
