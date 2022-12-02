@@ -1,5 +1,4 @@
 import {describe, expect, test, beforeEach} from '@jest/globals';
-import {Service} from '../service/service';
 import {Helper} from '../service/helper';
 import { TestData } from './testdata';
 
@@ -19,6 +18,16 @@ describe('Service', () => {
     test('arrayIdSearch() test without result', () => {
         expect(Helper.arrayIdSearch(testData.b, 2)).toBe(-1);
         expect(Helper.arrayIdSearch(testData.e, 2)).toBe(-1);
+    });
+
+    test('getNextId() test', () => {
+        expect(Helper.getNextId(testData.b)).toBe(2);
+        expect(Helper.getNextId(testData.e)).toBe(2);
+    });
+
+    test('getObject() test', () => {
+        expect(Helper.getObject(testData.e, 1)).toStrictEqual([testData.e[0]]);
+        expect(Helper.getObject(testData.b, 1)).toStrictEqual([testData.b[0]]);
     });
 
 });

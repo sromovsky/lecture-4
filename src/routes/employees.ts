@@ -9,12 +9,13 @@ export abstract class Employees {
 
     static addEndpoints(app: any) {
         const data = new Data('1.0.0');
+
         app.get(`/${EMPLOYEES}`, (req: Request, res: Response) => {
             res.send(data.e);
         });
         
         app.get(`/${EMPLOYEES}/:id`, (req: Request, res: Response) => {
-            const index: number = Helper.arrayIdSearch(data.e, Number(req.params.id));
+            const index: number = Helper.arrayIdSearch(data.e, req.params.id);
             if (index != -1) {
                 res.status(200).send(data.e[index]);
             } else {
@@ -24,7 +25,7 @@ export abstract class Employees {
 
         app.post(`/${EMPLOYEES}`, (req: Request, res: Response) => {
             if (req.body.firstName !== undefined && req.body.lastName !== undefined && req.body.position !== undefined) {
-                const id = data.e[data.e.length - 1].getId() + 1;
+                const id = Helper.getNextId(data.e);
                 const newEmployee = new Employee(id ,req.body.firstName, req.body.lastName, req.body.position);
                 data.e.push(newEmployee);
                 res.status(200).send(newEmployee);
@@ -32,6 +33,17 @@ export abstract class Employees {
                 res.status(400).send(MISSINGREQPARAM);
             }
         });
+
+        app.delete(`/${EMPLOYEES}/:id`, (req: Request, res: Response) => {
+            const removedEmployee =Helper.getObject(data.e, req.params.id)
+            if (removedEmployee.length > 0) {
+                data.e = data.e.filter(user => user.getId() !== Number(req.params.id));
+                res.status(200).send(removedEmployee);
+            } else {
+                res.status(400).send(NOEMPLOYEE);
+            }
+        });
+
         return app;
     }
 }

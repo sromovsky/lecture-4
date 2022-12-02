@@ -4,6 +4,7 @@ import {SERVER_PORT} from './const/api.const';
 import { Data } from './service/data';
 import { Buildings } from './routes/buildings';
 import { Employees } from './routes/employees';
+import { Meetings } from './routes/meetings';
 
 
 const express = require('express');
@@ -14,6 +15,7 @@ const app = express();
 app.use(express.json());
 Buildings.addEndpoints(app);
 Employees.addEndpoints(app);
+Meetings.addEndpoints(app);
 
 app.get('/', (req: Request, res: Response) => {
     res.send(service.healthcheck());

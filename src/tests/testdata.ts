@@ -27,4 +27,5 @@ export class TestData {
     b: Building[] = [this.b1];
 
     meeting1 = new Meeting(1, "Pohovor", LocalDateTime.parse("2022-11-25T08:00"), Duration.ofHours(2), this.empl1, [], this.b1f1mr1);
+    m: Meeting[] = [this.meeting1];
 }

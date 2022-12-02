@@ -1,6 +1,7 @@
-import { Duration, LocalDate, LocalDateTime } from "@js-joda/core";
+import { Duration, LocalDateTime } from "@js-joda/core";
 import { Employee } from "./Employee";
 import { MeetingRoom } from "./MeetingRoom";
+import { DateTimeParser } from "../service/dateTimeParser";
 
 export class Meeting {
     private id: number;
@@ -45,5 +46,17 @@ export class Meeting {
     }
     getMeetingRoom() {
         return this.meetingRoom;
+    }
+
+    getPrettyPrintedMeetingInfo() {
+        return {
+            "name": this.name,
+            "startDateTime": DateTimeParser.prettyPrintDateTime(this.startDateTime),
+            "duration": DateTimeParser.prettyPrintDuration(this.duration),
+            "endDateTime": DateTimeParser.prettyPrintDateTime(this.endDateTime),
+            "host": `${this.host.getFirstName()} ${this.host.getLastName()} (${this.host.getPosition()})`,
+            "getInvited": this.invited,
+            "meetingRoom": this.meetingRoom.getName()
+        }
     }
 }
