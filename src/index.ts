@@ -2,6 +2,10 @@ import {Request, Response} from 'express';
 import {Service} from './service/service';
 import {SERVER_PORT} from './const/api.const';
 import { Data } from './service/data';
+import { Buildings } from './routes/buildings';
+import { Employees } from './routes/employees';
+import { mongodb } from './service/mongodb';
+
 
 const express = require('express');
 const service = new Service('1.0.0');
@@ -9,12 +13,13 @@ const data = new Data('1.0.0');
 
 const app = express();
 app.use(express.json());
-
+Buildings.addEndpoints(app);
+Employees.addEndpoints(app);
+mongodb.send('documents', {})
 
 app.get('/', (req: Request, res: Response) => {
     res.send(service.healthcheck());
 });
-
 
 // Start server:
 app.listen(SERVER_PORT, () => {

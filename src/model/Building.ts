@@ -34,5 +34,20 @@ export class Building {
     getFloors() {
         return this.floors;
     }
+    getFloor(id: number) {
+        var floor: Floor[] = this.floors.filter(floor => floor.getId() == id);
+        return floor[0];
+    }
+    getPritableBuilding() {
+        let building = {
+            "id": this.id,
+            "name": this.name,
+            "address": this.address,
+            "city": this.city,
+            "country": this.city,
+            "floors": this.floors.length
+        }
+        return building;
+    }
     
 }
