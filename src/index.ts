@@ -4,7 +4,7 @@ import {SERVER_PORT} from './const/api.const';
 import { Data } from './service/data';
 import { Buildings } from './routes/buildings';
 import { Employees } from './routes/employees';
-import { mongodb } from './service/mongodb';
+//import { mongodb } from './service/mongodb';
 
 
 const express = require('express');
@@ -15,7 +15,6 @@ const app = express();
 app.use(express.json());
 Buildings.addEndpoints(app);
 Employees.addEndpoints(app);
-mongodb.send('documents', {})
 
 app.get('/', (req: Request, res: Response) => {
     res.send(service.healthcheck());

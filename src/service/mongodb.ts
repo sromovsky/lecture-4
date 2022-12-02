@@ -1,26 +1,58 @@
 const { MongoClient } = require('mongodb');
 const url = 'mongodb://root:root@localhost:27017';
-const client = new MongoClient(url);
 const dbName = 'lecture-3';
 
 export abstract class mongodb {
+  
+  static sendOne(db_collection: string, data: any) {
+    const client = new MongoClient(url);
 
-  static send(db_collection: string, data: any) {
     async function openDbConn() {
       await client.connect();
-      console.log('Connected successfully to server');
       const db = client.db(dbName);
       const collection = db.collection(db_collection);
-
-      const insertResult = await collection.insertOne({ a: 1 });
-      console.log('Inserted documents =>', insertResult);
-
-
-      return 'done.';
+      const insertResult = await collection.insertOne(data);
     }
 
     openDbConn()
-      .then(console.log)
+      .then()
+      .catch(console.error)
+      .finally(() => client.close());
+  }
+
+  static sendMany(db_collection: string, data: any[]) {
+    const client = new MongoClient(url);
+
+    console.log(data);
+
+    async function openDbConn() {
+      await client.connect();
+      const db = client.db(dbName);
+      const collection = db.collection(db_collection);
+      const insertResult = await collection.insertMany(data);
+    }
+
+    openDbConn()
+      .then()
+      .catch(console.error)
+      .finally(() => client.close());
+  }
+
+  static find(db_collection: string, data: any) {
+    const client = new MongoClient(url);
+
+    console.log(data);
+
+    async function openDbConn() {
+      await client.connect();
+      const db = client.db(dbName);
+      const collection = db.collection(db_collection);
+      const findResult = await collection.find(data).toArray();
+      return findResult;
+    }
+
+    openDbConn()
+      .then()
       .catch(console.error)
       .finally(() => client.close());
   }
