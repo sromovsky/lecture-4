@@ -1,4 +1,4 @@
-import { DateTimeFormatter, Duration, LocalDate, LocalDateTime } from "@js-joda/core";
+import { DateTimeFormatter, Duration, LocalDateTime } from "@js-joda/core";
 
 export abstract class DateTimeParser {
 
@@ -57,7 +57,7 @@ export abstract class DateTimeParser {
           return parsedDateTime;
      }
 
-     static parseDuration(duration: string): Duration | null {
+     static parseDuration(duration: string) {
           const duration_arr: string[] = duration.split(" ");
           const num: number = Number(duration_arr[0]);
           const unit: string = duration_arr[1];
@@ -66,7 +66,7 @@ export abstract class DateTimeParser {
           } else if (unit == "minute" || unit == "minutes") {
                return Duration.ofMinutes(num);
           } else {
-               return null;
+               return Duration.ofMillis(0);
           }
      }
 }

@@ -32,7 +32,7 @@ describe('Service', () => {
     });
 
     test('Test parseDuration() invalid input', () => {
-        expect(DateTimeParser.parseDuration("1 x")).toEqual(null);
+        expect(DateTimeParser.parseDuration("1 x")).toEqual(Duration.ofMillis(0));
     });
 
 });

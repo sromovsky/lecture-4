@@ -24,11 +24,11 @@ export abstract class Meetings {
             } else {
                 const dateTime: LocalDateTime = DateTimeParser.parseDateTime(req.body.startDate, req.body.startTime);
                 const nextId: number = Helper.getNextId(data.m)
-                const duration: Duration | null = DateTimeParser.parseDuration(req.body.duration);
+                const duration: Duration = DateTimeParser.parseDuration(req.body.duration);
                 const host: Employee = data.e[Helper.arrayIdSearch(data.e, req.body.host)];
                 const invitees: Employee[] = Helper.generateInviteesArray(data.e, req.body.invited);
                 const mr: MeetingRoom = data.mr[Helper.arrayIdSearch(data.mr, req.body.meetingRoom)];
-                if (duration == null) {
+                if (duration == Duration.ofMillis(0)) {
                     res.status(400).send(DURATIONPARSEFAILED);
                 } else {
                     const newMeeting: Meeting = new Meeting(nextId, req.body.name, dateTime, duration, host, invitees, mr);
@@ -54,6 +54,60 @@ export abstract class Meetings {
 
         app.put(`/${MEETINGS}/:id`, (req: Request, res: Response) => {
             const index: number = Helper.arrayIdSearch(data.m, Number(req.params.id));
+            var validationPassed: boolean = true;
+            if (index != -1) {
+                if(req.body.name) {
+                    data.m[index].setName(req.body.name);
+                }
+                if(req.body.startDate) {
+                    const startDateTime = DateTimeParser.parseDateTime(req.body.startDate, data.m[index].getStartTime());
+                    const meetingValidator: Meeting = new Meeting(0, "", data.m[index].getStartDateTime(), data.m[index].getDuration(), data.empl1, [], data.mrBatman);
+                    if(!Helper.validateMeeting(data.m, meetingValidator)) { 
+                        validationPassed = false;
+                    } else {
+                        data.m[index].setStartDateTime(startDateTime);
+                    }
+                }
+                if(req.body.startTime) {
+                    const startDateTime = DateTimeParser.parseDateTime(data.m[index].getStartDate(), req.body.startTime);
+                    const meetingValidator: Meeting = new Meeting(0, "", data.m[index].getStartDateTime(), data.m[index].getDuration(), data.empl1, [], data.mrBatman);
+                    if(!Helper.validateMeeting(data.m, meetingValidator)) { 
+                        validationPassed = false;
+                    } else {
+                        data.m[index].setStartDateTime(startDateTime);
+                    }
+                }
+                if(req.body.duration) {
+                    const duration: Duration = DateTimeParser.parseDuration(req.body.duration);
+                    if (duration == Duration.ofMillis(0)) {
+                        res.status(400).send(DURATIONPARSEFAILED);
+                    } else {
+                        const meetingValidator: Meeting = new Meeting(0, "", data.m[index].getStartDateTime(), data.m[index].getDuration(), data.empl1, [], data.mrBatman);
+                        if(!Helper.validateMeeting(data.m, meetingValidator)) { 
+                            validationPassed = false;
+                        } else {
+                            data.m[index].setDuration(duration);
+                        }
+                    }
+                }
+                if(req.body.host) {
+                    data.m[index].setHost(data.e[Helper.arrayIdSearch(data.e, req.body.host)]);
+                }
+                if(req.body.invited){
+                    const invitees: Employee[] = Helper.generateInviteesArray(data.e, req.body.invited);
+                    data.m[index].setInvited(invitees)
+                }
+                if(req.body.meetingRoom){
+                    data.m[index].setMeetingRoom(data.mr[Helper.arrayIdSearch(data.mr, req.body.meetingRoom)]);
+                }
+                if(validationPassed){
+                    res.status(200).send(data.m[index].getPrettyPrintedMeetingInfo());
+                } else {
+                    res.status(409).send(ROOMTAKEN);
+                }
+            } else {
+                res.status(404).send(NOMEETING);
+            }
         });
 
         app.delete(`/${MEETINGS}/:id`, (req: Request, res: Response) => {

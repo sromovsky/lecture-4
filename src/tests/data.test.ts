@@ -1,5 +1,6 @@
 import { describe, expect, test, beforeEach } from '@jest/globals';
 import { Duration, LocalDateTime } from '@js-joda/core';
+import { DateTimeParser } from '../service/parsers/dateTimeParser';
 import { TestData } from './testdata';
 
 describe('Service', () => {
@@ -77,6 +78,38 @@ describe('Service', () => {
         }
 
         expect(testData.meeting1.getPrettyPrintedMeetingInfo()).toStrictEqual(expectedOutput);
+    });
+    test('Test meeting getStartDate()', () => {
+        expect(testData.meeting1.getStartDate().toString()).toEqual("25.11.2022");
+    });
+    test('Test meeting getStartTime()', () => {
+        expect(testData.meeting1.getStartTime().toString()).toEqual("08:00");
+    });
+    test('Test meeting setName()', () => {
+        testData.meeting1.setName("Test meeting")
+        expect(testData.meeting1.getName()).toBe("Test meeting");
+    });
+    test('Test meeting setStartDateTime()', () => {
+        testData.meeting1.setStartDateTime(LocalDateTime.parse("2022-01-01T10:00"));
+        expect(testData.meeting1.getStartDateTime().toString()).toEqual("2022-01-01T10:00");
+        expect(testData.meeting1.getEndDateTime().toString()).toEqual("2022-01-01T12:00");
+    });
+    test('Test meeting setDuration()', () => {
+        testData.meeting1.setDuration(DateTimeParser.parseDuration("1 hour"));
+        expect(testData.meeting1.getDuration().toString()).toEqual("PT1H");
+        expect(testData.meeting1.getEndDateTime().toString()).toEqual("2022-11-25T09:00");
+    });
+    test('Test meeting setHost()', () => {
+        testData.meeting1.setHost(testData.empl2)
+        expect(testData.meeting1.getHost()).toStrictEqual(testData.empl2);
+    });
+    test('Test meeting setInvited()', () => {
+        testData.meeting1.setInvited([testData.empl1])
+        expect(testData.meeting1.getInvited()).toStrictEqual([testData.empl1]);
+    });
+    test('Test meeting setMeetingRoom()', () => {
+        testData.meeting1.setMeetingRoom(testData.mrNaruto)
+        expect(testData.meeting1.getMeetingRoom()).toStrictEqual(testData.mrNaruto);
     });
 
 });

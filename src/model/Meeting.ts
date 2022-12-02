@@ -1,4 +1,4 @@
-import { Duration, LocalDateTime } from "@js-joda/core";
+import { DateTimeFormatter, Duration, LocalDateTime } from "@js-joda/core";
 import { Employee } from "./Employee";
 import { MeetingRoom } from "./MeetingRoom";
 import { DateTimeParser } from "../service/parsers/dateTimeParser";
@@ -61,4 +61,36 @@ export class Meeting {
             "meetingRoom": this.meetingRoom.getName()
         }
     }
+    getStartDate(){
+        const formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        const date = this.startDateTime.format(formatter);
+        return date;
+    }
+    getStartTime(){
+        const formatter = DateTimeFormatter.ofPattern("HH:mm");
+        const time = this.startDateTime.format(formatter);
+        return time;
+    }
+    setName(name: string){
+        this.name = name;
+    }
+    setStartDateTime(dateTime: LocalDateTime) {
+        this.startDateTime = dateTime;
+        this.endDateTime = this.startDateTime.plus(this.duration);
+    }
+    setDuration(duration: Duration) {
+        this.duration = duration;
+        this.endDateTime = this.startDateTime.plus(this.duration);
+    }
+    setHost(host: Employee) {
+        this.host = host;
+    }
+    setInvited(invited: Employee[]) {
+        this.invited = invited;
+    }
+    setMeetingRoom(meetingRoom: MeetingRoom) {
+        this.meetingRoom = meetingRoom;
+    }
+
+
 }

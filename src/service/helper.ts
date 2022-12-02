@@ -37,7 +37,6 @@ export abstract class Helper {
          const data_start: Instant = Instant.parse(data[i].getStartDateTime().toString()+INTERVALFIX)
          const data_end: Instant = Instant.parse(data[i].getEndDateTime().toString()+INTERVALFIX)
          const data_interval: Interval = Interval.of(data_start, data_end);
-
          if(meeting_interval.overlaps(data_interval) && data[i].getMeetingRoom() == meeting.getMeetingRoom()) {
             return false;
          }
