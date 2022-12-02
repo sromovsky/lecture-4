@@ -1,6 +1,6 @@
 import {Healthcheck} from '../model/Healthcheck';
 import {Person} from '../model/Person';
-import {Company} from '../model/Company';
+import {School} from '../model/School';
 import {Address} from '../model/Address';
 
 export class Service {
@@ -11,10 +11,10 @@ export class Service {
     }
 
     healthcheck(): Healthcheck {
-        const author = new Person('Tomáš', 'Šromovský');
+        const author = new Person('Matej', 'Koszorú');
         const companyAddress = new Address('Bajkalská', 28, 'Bratislava');
-        const company = new Company('PosAm, spol. s r.o.', companyAddress);
+        const school = new School('PosAm, spol. s r.o.', companyAddress);
 
-        return new Healthcheck(author, company, this.identifier);
+        return new Healthcheck(author, school, this.identifier);
     }
 }
