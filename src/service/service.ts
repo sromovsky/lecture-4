@@ -12,8 +12,8 @@ export class Service {
 
     healthcheck(): Healthcheck {
         const author = new Person('Matej', 'Koszorú');
-        const companyAddress = new Address('Bajkalská', 28, 'Bratislava');
-        const school = new School('PosAm, spol. s r.o.', companyAddress);
+        const schoolAddress = new Address('Bajkalská', 28, 'Bratislava');
+        const school = new School('PosAm, spol. s r.o.', schoolAddress);
 
         return new Healthcheck(author, school, this.identifier);
     }
