@@ -31,9 +31,9 @@ app.get('/meetings', (req: Request, res: Response) => {
 });
 
 app.post('/meetings', (req: Request, res: Response) => {
-    const newMeeting = new NewMeeting(req.query?.name?.toString(), Number(req.query?.start?.toString()));
-    meetingService.add(newMeeting);
-    res.send({});
+    const newMeeting = new NewMeeting(req.body?.name, req.body?.start);
+    console.log(req.query);
+    res.send({id: meetingService.add(newMeeting)});
 });
 
 // Start server:
