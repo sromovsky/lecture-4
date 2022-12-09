@@ -1,6 +1,6 @@
 import {Address} from './Address';
 
-export class School {
+export class Company {
     private name: string;
     private address: Address
 
