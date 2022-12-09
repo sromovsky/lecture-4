@@ -1,16 +1,16 @@
 import {describe, expect, test, beforeEach} from '@jest/globals';
-import {Service} from './service';
+import {MeetingService} from './service';
 
 describe('Service', () => {
 
-    let service: Service;
+    let meetingService: MeetingService;
 
     beforeEach(() => {
-        service = new Service('0.0.1');
-    });
+        meetingService = new MeetingService('');
+    })
 
     test('Test healthcheck identifier', () => {
-        const healthcheck = service.healthcheck();
+        const healthcheck = meetingService.healthcheck();
         expect(healthcheck.getIdentifier()).toBe('0.0.1');
     });
 });

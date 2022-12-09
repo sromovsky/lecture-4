@@ -3,7 +3,7 @@ import {Person} from '../model/Person';
 import {Company} from '../model/Company';
 import {Address} from '../model/Address';
 
-export class Service {
+export class MeetingService {
     private readonly identifier: string;
 
     constructor(identifier: string) {

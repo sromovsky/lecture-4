@@ -1,12 +1,12 @@
 import {Request, Response} from 'express';
-import {Service} from './service/service';
+import {MeetingService} from './service/service';
 import {SERVER_PORT} from './const/api.const';
 import {TimeService} from './service/time.service';
 import {MeetingService} from './service/meeting.service';
 import {NewMeeting} from './model/NewMeeting';
 
 const express = require('express');
-const service = new Service('1.0.0');
+const service = new MeetingService('1.0.0');
 const timeService = new TimeService();
 const meetingService = new MeetingService();
 
