@@ -2,13 +2,13 @@ import {Request, Response} from 'express';
 import {MeetingService} from './service/service';
 import {SERVER_PORT} from './const/api.const';
 import {TimeService} from './service/time.service';
-import {MeetingService} from './service/meeting.service';
+import {service} from './service/meeting.service';
 import {NewMeeting} from './model/NewMeeting';
 
 const express = require('express');
 const service = new MeetingService('1.0.0');
 const timeService = new TimeService();
-const meetingService = new MeetingService();
+const meetingService = new service();
 
 const app = express();
 app.use(express.json());
