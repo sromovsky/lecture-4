@@ -32,8 +32,19 @@ app.get('/meetings', (req: Request, res: Response) => {
 
 app.post('/meetings', (req: Request, res: Response) => {
     const newMeeting = new NewMeeting(req.body?.name, req.body?.start);
-    console.log(req.query);
-    res.send({id: meetingService.add(newMeeting)});
+
+    if (meetingService.hasStartTime(newMeeting.getStart())) {
+        res.statusCode = 409;
+        res.send({
+            error: 'Meeting already exist!'
+        });
+    } else {
+        res.send({id: meetingService.add(newMeeting)});
+    }
+});
+
+app.get('/free-meeting-times', (req: Request, res: Response) => {
+    res.send(meetingService.freeMeetingTimes());
 });
 
 // Start server:
