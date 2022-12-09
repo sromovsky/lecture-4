@@ -13,9 +13,14 @@ const meetingService = new MeetingService();
 const app = express();
 app.use(express.json());
 
+// Server bezi:
+app.listen(SERVER_PORT, () => {
+    console.log(`⚡ [server]: Server is running at http://localhost:${SERVER_PORT}`)
+});
+
 
 app.get('/', (req: Request, res: Response) => {
-    res.send(service.healthcheck());
+    res.send(service.maininfo());
 });
 
 app.get('/today', (req: Request, res: Response) => {
@@ -32,11 +37,32 @@ app.get('/meetings', (req: Request, res: Response) => {
 
 app.post('/meetings', (req: Request, res: Response) => {
     const newMeeting = new NewMeeting(req.body?.name, req.body?.start);
-    console.log(req.query);
-    res.send({id: meetingService.add(newMeeting)});
+
+    if (meetingService.hasStartTime(newMeeting.getStart())) {
+        res.statusCode = 409;
+        res.send({
+            error: 'Meeting already exist!'
+        });
+    } else {
+        res.send({id: meetingService.add(newMeeting)});
+    }
 });
 
-// Start server:
-app.listen(SERVER_PORT, () => {
-    console.log(`⚡ [server]: Server is running at http://localhost:${SERVER_PORT}`)
+app.get('/free-meeting-times', (req: Request, res: Response) => {
+    res.send(meetingService.freeMeetingTimes());
+});
+
+
+// zobrazenie iba konkrétneho meetingu
+const array = meetingService.getAll();
+
+app.get('/meetings/:id', (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+
+    const meeting = array.find(meeting => meeting.getId() === id);
+    if (meeting) {
+        res.send(meeting);
+    } else {
+        res.send({});
+    }
 });

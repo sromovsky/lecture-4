@@ -1,7 +1,7 @@
 import {Company} from './Company';
 import {Person} from './Person';
 
-export class Healthcheck {
+export class MainInfo {
     private author: Person;
     private company: Company;
     private identifier: string;
