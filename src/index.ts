@@ -36,7 +36,13 @@ app.post('/meetings', (req: Request, res: Response) => {
     if (meetingService.hasStartTime(newMeeting.getStart())) {
         res.statusCode = 409;
         res.send({
-            error: 'Meeting already exist!'
+            error: 'Meeting for the time already exist!'
+        });
+    }
+    else if (meetingService.overTime(newMeeting.getStart())) {
+        res.statusCode = 409;
+        res.send({
+            error: 'Last meeting can be from 15:00 only!'
         });
     } else {
         res.send({id: meetingService.add(newMeeting)});

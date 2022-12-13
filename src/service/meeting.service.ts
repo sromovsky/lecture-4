@@ -46,4 +46,13 @@ export class MeetingService {
         }
         return result;
     }
+
+    overTime(startTime: number): boolean   {
+        let over = false;
+        if (startTime >= 16) {
+            over = true
+        }
+        return over;
+    }
+
 }
