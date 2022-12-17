@@ -8,4 +8,8 @@ export class TimeInterval {
         this.from = from;
         this.to = to;
     }
+
+    getFrom(): LocalTime {
+        return this.from;
+    }
 }
