@@ -1,3 +1,5 @@
+import {Meeting} from "./Meeting";
+
 export class NewMeeting {
     private name: string;
     private start: number;

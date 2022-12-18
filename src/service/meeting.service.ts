@@ -2,7 +2,7 @@ import {Meeting} from '../model/Meeting';
 import {NewMeeting} from '../model/NewMeeting';
 import {TimeInterval} from '../model/TimeInterval';
 import {LocalTime} from '@js-joda/core';
-import {BLOCK_TIME_MINUTES} from '../const/time.cont';
+import {BLOCK_TIME_MINUTES, WORKING_TIME_FROM, WORKING_TIME_TO} from '../const/time.cont';
 
 export class MeetingService {
     meetingStorage: Meeting[];
@@ -21,7 +21,38 @@ export class MeetingService {
         const from = LocalTime.of(newMeeting.getStart());
         const to = from.plusMinutes(BLOCK_TIME_MINUTES);
         const interval = new TimeInterval(from, to);
-        const meeting = new Meeting(newMeeting.getName(), interval)
+        const id = this.meetingStorage.length + 1;
+        const meeting = new Meeting(id, newMeeting.getName(), interval);
         return this.meetingStorage.push(meeting);
+        return meeting.getId();
     }
+
+hasStartTime(startTime: number): boolean {
+    let match = false;
+    this.meetingStorage.forEach(meeting => {
+        if (meeting.getInterval().getFrom().hour() === startTime) {
+            match = true;
+        }
+    });
+    return match;
+}
+
+    freeMeetingTimes(): number[] {
+        const result: number[] = [];
+        for (let hour = WORKING_TIME_FROM; hour < WORKING_TIME_TO; hour++) {
+            if (!this.hasStartTime(hour)) {
+                result.push(hour);
+            }
+        }
+        return result;
+    }
+
+    overTime(startTime: number): boolean   {
+        let over = false;
+        if (startTime >= 16) {
+            over = true
+        }
+        return over;
+    }
+
 }

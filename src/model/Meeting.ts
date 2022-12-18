@@ -1,15 +1,20 @@
 import {TimeInterval} from './TimeInterval';
 
 export class Meeting {
+    private id: number;
     private name: string;
     private interval: TimeInterval;
 
-    constructor(name: string, interval: TimeInterval) {
+    constructor(id: number, name: string, interval: TimeInterval) {
+        this.id = id;
         this.name = name;
         this.interval = interval;
     }
+    getId(): number {
+        return this.id;
+    }
 
-    getName() {
+    getName(): string {
         return this.name;
     }
 
@@ -18,4 +23,7 @@ export class Meeting {
         return startTime.toSecondOfDay();
     }
 
+    getInterval(): TimeInterval {
+        return this.interval;
+    }
 }
