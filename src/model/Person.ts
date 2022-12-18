@@ -6,4 +6,12 @@ export class Person {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    getFirstName(): string {
+        return this.firstName;
+    }
+
+    getLastName(): string {
+        return this.lastName;
+    }
 }

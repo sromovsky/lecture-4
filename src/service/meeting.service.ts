@@ -2,6 +2,7 @@ import {Meeting} from '../model/Meeting';
 import {NewMeeting} from '../model/NewMeeting';
 import {TimeInterval} from '../model/TimeInterval';
 import {LocalTime} from '@js-joda/core';
+import {Person} from "../model/Person";
 import {BLOCK_TIME_MINUTES, WORKING_TIME_FROM, WORKING_TIME_TO} from '../const/time.cont';
 
 export class MeetingService {
@@ -45,5 +46,10 @@ export class MeetingService {
             }
         }
         return result;
+    }
+
+    addMeetingParticipants() {
+        const Person1 = new Person(Person.getFirstName,  Person.getLastName);
+        return Person1();
     }
 }

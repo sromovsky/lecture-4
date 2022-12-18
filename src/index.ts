@@ -47,6 +47,10 @@ app.get('/free-meeting-times', (req: Request, res: Response) => {
     res.send(meetingService.freeMeetingTimes());
 });
 
+app.get('/add-participants', (req: Request, res: Response) => {
+    res.send(meetingService.addMeetingParticipants());
+});
+
 // Start server:
 app.listen(SERVER_PORT, () => {
     console.log(`⚡ [server]: Server is running at http://localhost:${SERVER_PORT}`)
