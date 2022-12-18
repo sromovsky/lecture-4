@@ -1,14 +1,15 @@
 import {Company} from './Company';
 import {Person} from './Person';
+import {School} from "./School";
 
 export class Healthcheck {
     private author: Person;
-    private company: Company;
+    private school: School;
     private identifier: string;
 
-    constructor(author: Person, company: Company, identifier: string) {
+    constructor(author: Person, school: School, identifier: string) {
         this.author = author;
-        this.company = company;
+        this.school = school;
         this.identifier = identifier;
     }
 
