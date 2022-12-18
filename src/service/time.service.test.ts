@@ -2,7 +2,6 @@ import {TimeService} from './time.service';
 import {describe, expect, test, beforeEach} from '@jest/globals';
 import {AdvancedDateTime} from '../model/AdvancedDateTime';
 import {LocalDateTime} from '@js-joda/core';
-
 describe('TimeService', () => {
 
     let timeService: TimeService;
@@ -22,6 +21,7 @@ describe('TimeService', () => {
         };
         expect(advancedDateTime).toEqual(expectedObject);
     });
+
 
     test('AdvancedDateTime from LocalDate with seconds', () => {
         const date = LocalDateTime.of(2023, 1, 1, 0, 0, 1);

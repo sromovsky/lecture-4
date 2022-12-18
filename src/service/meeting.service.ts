@@ -12,7 +12,9 @@ export class MeetingService {
     }
 
     getAll(): Meeting[] {
-        return this.meetingStorage;
+        return this.meetingStorage.sort((a, b) => {
+            return a.getSecondsFromMidnight() - b.getSecondsFromMidnight();
+        });
     }
 
     add(newMeeting: NewMeeting): number {

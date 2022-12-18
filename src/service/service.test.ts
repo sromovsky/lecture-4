@@ -9,6 +9,7 @@ describe('Service', () => {
         service = new Service('0.0.1');
     });
 
+
     test('Test healthcheck identifier', () => {
         const healthcheck = service.healthcheck();
         expect(healthcheck.getIdentifier()).toBe('0.0.1');

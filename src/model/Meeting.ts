@@ -8,4 +8,14 @@ export class Meeting {
         this.name = name;
         this.interval = interval;
     }
+
+    getName() {
+        return this.name;
+    }
+
+    getSecondsFromMidnight(): number {
+        const startTime = this.interval.getFrom();
+        return startTime.toSecondOfDay();
+    }
+
 }
