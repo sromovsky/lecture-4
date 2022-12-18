@@ -1,8 +1,7 @@
-import {Healthcheck} from '../model/School/Healthcheck';
-import {Person} from '../model/School/Person';
-import {School} from '../model/School/School';
-import {Address} from '../model/School/Address';
-import {Faculty} from "../model/School/Faculty";
+import {Healthcheck} from '../model/Healthcheck';
+import {School} from '../model/School';
+import {Address} from '../model/Address';
+import {Person} from "../model/Person";
 
 export class Service {
     private readonly identifier: string;
@@ -12,10 +11,9 @@ export class Service {
     }
 
     healthcheck(): Healthcheck {
-        const author = new Person('Matej', 'Koszorú');
-        const schoolAddress = new Address('Dolnozemská', 1, 'Bratislava');
-        const faculty = new Faculty('Fakulta Hospodárskej Informatiky','Hospodárska Informatika' ,3)
-        const school = new School('Ekonomická Univerzita v Bratislave', schoolAddress, faculty);
+        const author = new Person('Samuel', 'Čuboň');
+        const schoolAddress = new Address('Dolnozemská cesta', 1, ' Petržalka', '852 35', 'Bratislava');
+        const school = new School('Ekonomická Univerzita v Bratislave', schoolAddress);
 
         return new Healthcheck(author, school, this.identifier);
     }
