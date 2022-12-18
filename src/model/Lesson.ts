@@ -1,12 +1,15 @@
 import {TimeInterval} from './TimeInterval';
 
-export class Meeting {
+export class Lesson {
     private id: number;
+    private shortcut: string;
     private name: string;
     private interval: TimeInterval;
 
-    constructor(id: number, name: string, interval: TimeInterval) {
-        this.id = id;
+
+    constructor(id: number, shortcut: string, name: string, interval: TimeInterval) {
+        this.id =  id;
+        this.shortcut = shortcut;
         this.name = name;
         this.interval = interval;
     }
@@ -15,9 +18,14 @@ export class Meeting {
         return this.id;
     }
 
+    getShortcut(): string  {
+        return this.shortcut;
+    }
+
     getName(): string {
         return this.name;
     }
+
 
     getSecondsFromMidnight(): number {
         const startTime = this.interval.getFrom();

@@ -1,7 +1,7 @@
 import {AdvancedDateTime} from '../model/AdvancedDateTime';
 import {LocalDateTime, LocalTime} from '@js-joda/core';
 import {TimeInterval} from '../model/TimeInterval';
-import {WORKING_TIME_FROM, WORKING_TIME_TO} from '../const/time.cont';
+import {STUDY_TIME_FROM, STUDY_TIME_TO} from '../const/time.cont';
 
 export class TimeService {
     constructor() {
@@ -12,8 +12,8 @@ export class TimeService {
     }
 
     workingTime(): TimeInterval {
-        const from = LocalTime.of(WORKING_TIME_FROM);
-        const to = LocalTime.of(WORKING_TIME_TO);
+        const from = LocalTime.of(STUDY_TIME_FROM);
+        const to = LocalTime.of(STUDY_TIME_TO);
         return new TimeInterval(from, to);
     }
 }
