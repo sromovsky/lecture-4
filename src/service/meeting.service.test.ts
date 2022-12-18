@@ -54,4 +54,14 @@ describe('MeetingService', () => {
 
         expect(meetingService.hasStartTime(9)).toBe(false);
     });
+
+    test('Meetings out of working time', () => {
+        const newMeeting1 = new NewMeeting('Wake Up', 7);
+        const newMeeting2 = new NewMeeting('IMAPL', 10);
+
+        meetingService.add(newMeeting1);
+        meetingService.add(newMeeting2);
+
+        expect(meetingService.checkWorkingTime(9)).toBe(true);
+    });
 });

@@ -46,4 +46,12 @@ export class MeetingService {
         }
         return result;
     }
+
+    checkWorkingTime(startTime: number): boolean {
+        let match = true;
+        if(startTime < WORKING_TIME_FROM || startTime > (WORKING_TIME_TO - 1)){
+            match = false;
+        }
+        return match;
+    }
 }

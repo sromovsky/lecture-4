@@ -33,6 +33,11 @@ app.get('/meetings', (req: Request, res: Response) => {
 app.post('/meetings', (req: Request, res: Response) => {
     const newMeeting = new NewMeeting(req.body?.name, req.body?.start);
 
+    if(!meetingService.checkWorkingTime(newMeeting.getStart())){
+        res.send({
+            error: 'Time is out of working time!'
+        });
+    }
     if (meetingService.hasStartTime(newMeeting.getStart())) {
         res.statusCode = 409;
         res.send({
