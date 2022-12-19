@@ -30,14 +30,12 @@ app.get('/working-time', (req: Request, res: Response) => {
 });
 
 app.get('/free-meetings-times', (req: Request, res: Response) => {
-    res.send(meetingService.getAll());
+    res.send(meetingService.freeMeetingTimes());
 });
 app.get('/meetings', (req: Request, res: Response) => {
     res.send(meetingService.getAll());
 });
-app.get('/id', (req: Request, res: Response) => {
-    res.send(meetingService.getAll());
-});
+
 
     app.post('/meetings', (req: Request, res: Response) => {
         const newMeeting = new NewMeeting(req.body?.name, req.body?.start);
