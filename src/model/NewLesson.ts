@@ -4,12 +4,14 @@ import localTime = TemporalQueries.localTime;
 
 export class NewLesson {
     private id: number;
+    private day: string;
     private shortcut: string;
     private name: string;
     private interval: TimeInterval;
 
-    constructor(id: number, shortcut: string, name: string | undefined, start: string, end: string | undefined) {
+    constructor(id: number, day: string, shortcut: string, name: string | undefined, start: string, end: string | undefined) {
         this.id = id;
+        this.day = day;
         this.shortcut = shortcut;
         this.name = name ? name : 'Meeting';
 
@@ -43,5 +45,8 @@ export class NewLesson {
         return this.interval;
     }
 
+    getDay(): string{
+        return this.day;
+    }
 
 }

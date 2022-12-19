@@ -13,32 +13,40 @@ export class LessonService {
         this.lessonStorage = [];
     }
 
-    getAll(): Lesson[] {
-        return this.lessonStorage.sort((a, b) => {
+    getAll(day?: string | undefined): Lesson[] {
+        const lessons = this.lessonStorage.sort((a, b) => {
             return a.getSecondsFromMidnight() - b.getSecondsFromMidnight();
         });
+        if(day !== undefined){
+            return lessons.filter(e => e.getDay().toLowerCase()===day.toLowerCase())
+        }
+        else {
+            return lessons
+        }
+
     }
 
     add(newLesson: NewLesson): number {
         const interval = newLesson.getInterval()
         const id = this.lessonStorage.length + 1;
-        const lesson = new Lesson (id, newLesson.getShortcut(), newLesson.getName(), interval);
+        const lesson = new Lesson (id, newLesson.getDay(), newLesson.getShortcut(), newLesson.getName(), interval);
         this.lessonStorage.push(lesson);
         return lesson.getId();
     }
 
-    hasStartTime(lesson: NewLesson): boolean {
+    hasStartTime(lesson: NewLesson, lessonDay: string): boolean {
         const checker = (arr: string[], target: string[]) => target.every(v => arr.includes(v));
-        return !checker(this.freeLessonTimes(),lesson.getInterval().getLessonTimes())
+        return !checker(this.freeLessonTimes(lessonDay),lesson.getInterval().getLessonTimes())
     }
 
-    freeLessonTimes(): string[] {
+    freeLessonTimes(lessonDay: string): string[] {
         const day = new TimeInterval(LocalTime.of(9,15),LocalTime.of(20));
         let result = day.getLessonTimes();
-        this.lessonStorage.forEach(lesson => {
+        this.lessonStorage.filter(e => e.getDay().toLowerCase() === lessonDay.toLowerCase()).forEach(lesson => {
             const times = lesson.getInterval().getLessonTimes()
             result = result.filter(time => !times.includes(time))
         })
         return result;
     }
+
 }

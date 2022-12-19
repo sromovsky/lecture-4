@@ -10,13 +10,22 @@ const service = new Service('1.0.0');
 const timeService = new TimeService();
 const lessonService = new LessonService();
 
-const Lesson1 = new NewLesson(1, "PRP","Podpora rozhodovacich procesov", "09:15", "10:45");
-const Lesson2 = new NewLesson(2,"MSII", "Management Science II", "11:00", "12:30");
-const Lesson3 = new NewLesson(3, "UIES", "Umela Inteligencia a expertne systemy", "15:15", "16:45");
+const Lesson1 = new NewLesson(1, "Monday","PRP","Podpora rozhodovacich procesov", "09:15", "10:45");
+const Lesson2 = new NewLesson(2,"Monday","MSII", "Management Science II", "11:00", "12:30");
+const Lesson3 = new NewLesson(3, "Thursday","UIES", "Umela Inteligencia a expertne systemy", "15:15", "16:45");
+const Lesson4 = new NewLesson(4, "Tuesday", "STAT", "Statistika", "13:30", "15:00");
+const Lesson5 = new NewLesson(5, "Wednesday", "PH", "Podnikove Hospodarstvo", "11:00", "12:30");
+const Lesson6 = new NewLesson(6, "Wednesday", "ETII", "Ekonomicka Teoria II", "13:30", "15:00")
+const Lesson7 = new NewLesson(7, "Friday", "IMAPL", "Internetove a mobilne aplikacie", "09:15", "16:00")
 
 lessonService.add (Lesson1);
 lessonService.add (Lesson2);
 lessonService.add (Lesson3);
+lessonService.add (Lesson4);
+lessonService.add (Lesson5);
+lessonService.add (Lesson6);
+lessonService.add (Lesson7);
+
 
 const app = express();
 app.use(express.json());
@@ -38,10 +47,14 @@ app.get('/timetable', (req: Request, res: Response) => {
     res.send(lessonService.getAll());
 });
 
-app.post('/timetable', (req: Request, res: Response) => {
-    const newLesson = new NewLesson(req.body?.id, req.body?.shortcut, req.body?.name, req.body?.start, req.body?.end);
+app.get('/timetable/:day', (req: Request, res: Response) => {
+    res.send(lessonService.getAll(req.params.day));
+});
 
-    if (lessonService.hasStartTime(newLesson)) {
+app.post('/timetable/:day', (req: Request, res: Response) => {
+    const newLesson = new NewLesson(req.body?.id, req.body?.day, req.body?.shortcut, req.body?.name, req.body?.start, req.body?.end);
+
+    if (lessonService.hasStartTime(newLesson,req.params.day)) {
         res.statusCode = 409;
         res.send({
             error: 'Another lesson running at this time!'
@@ -53,8 +66,8 @@ app.post('/timetable', (req: Request, res: Response) => {
 
 
 
-app.get('/open-slots', (req: Request, res: Response) => {
-    res.send(lessonService.freeLessonTimes());
+app.get('/open-slots/:day', (req: Request, res: Response) => {
+    res.send(lessonService.freeLessonTimes(req.params.day));
 });
 
 // Start server:

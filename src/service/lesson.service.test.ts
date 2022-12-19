@@ -10,9 +10,9 @@ describe('LessonService', () => {
     });
 
     test('Sort podla casu 1', () => {
-        const newLesson1 = new NewLesson(1, "PRP","Podpora rozhodovacich procesov", "09:15", "10:45");
-        const newLesson2 = new NewLesson(2,"MSII", "Management Science II", "11:00", "12:30");
-        const newLesson3 = new NewLesson(3, "UIES", "Umela Inteligencia a expertne systemy", "15:15", "16:45");
+        const newLesson1 = new NewLesson(1, "Monday", "PRP","Podpora rozhodovacich procesov", "09:15", "10:45");
+        const newLesson2 = new NewLesson(2,"Monday","MSII", "Management Science II", "11:00", "12:30");
+        const newLesson3 = new NewLesson(3, "Thursday","UIES", "Umela Inteligencia a expertne systemy", "15:15", "16:45");
 
         lessonService.add(newLesson1);
         lessonService.add(newLesson2);
@@ -23,9 +23,9 @@ describe('LessonService', () => {
     });
 
     test('Sort podla casu 2', () => {
-        const newLesson1 = new NewLesson(1, "PRP","Podpora rozhodovacich procesov", "09:15", "10:45");
-        const newLesson2 = new NewLesson(2,"MSII", "Management Science II", "11:00", "12:30");
-        const newLesson3 = new NewLesson(3, "UIES", "Umela Inteligencia a expertne systemy", "15:15", "16:45");
+        const newLesson1 = new NewLesson(1, "Monday", "PRP","Podpora rozhodovacich procesov", "09:15", "10:45");
+        const newLesson2 = new NewLesson(2,"Monday","MSII", "Management Science II", "11:00", "12:30");
+        const newLesson3 = new NewLesson(3, "Thursday","UIES", "Umela Inteligencia a expertne systemy", "15:15", "16:45");
 
         lessonService.add(newLesson1);
         lessonService.add(newLesson2);
