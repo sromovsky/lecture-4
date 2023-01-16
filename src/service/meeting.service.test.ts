@@ -1,67 +1,62 @@
-import {beforeEach, describe} from '@jest/globals';
-import {MeetingService} from './meeting.service';
-import {NewMeeting} from '../model/NewMeeting';
+import { beforeEach, describe } from "@jest/globals";
+import { MeetingService } from "./meeting.service";
+import { NewMeeting } from "../model/NewMeeting";
+import { LocalDate } from "@js-joda/core";
 
-describe('MeetingService', () => {
-    let meetingService: MeetingService;
+describe("MeetingService", () => {
+  let meetingService: MeetingService;
 
-    beforeEach(() => {
-        meetingService = new MeetingService();
-    });
+  beforeEach(() => {
+    meetingService = new MeetingService();
+  });
 
-    test('Meetings sort by time', () => {
-        const newMeeting1 = new NewMeeting('Obed', 12);
-        const newMeeting2 = new NewMeeting('IMAPL', 9);
-        const newMeeting3 = new NewMeeting('IMAPL2', 13);
+  test("Meetings sort by time", () => {
+    const newMeeting1 = new NewMeeting("Obed", 12);
+    const newMeeting2 = new NewMeeting("IMAPL", 9);
+    const newMeeting3 = new NewMeeting("IMAPL2", 13);
 
-        meetingService.add(newMeeting1);
-        meetingService.add(newMeeting2);
-        meetingService.add(newMeeting3);
+    meetingService.add(newMeeting1);
+    meetingService.add(newMeeting2);
+    meetingService.add(newMeeting3);
 
-        const meetings = meetingService.getAll();
-        expect(meetings[0].getName()).toBe('IMAPL');
-    });
+    const meetings = meetingService.getAll();
+    expect(meetings[0].getName()).toBe("IMAPL");
+  });
 
-    test('Meetings sort by time', () => {
-        const newMeeting1 = new NewMeeting('Obed', 12);
-        const newMeeting2 = new NewMeeting('IMAPL2', 13);
-        const newMeeting3 = new NewMeeting('IMAPL', 9);
+  test("Meetings sort by time", () => {
+    const newMeeting1 = new NewMeeting("Obed", 12);
+    const newMeeting2 = new NewMeeting("IMAPL2", 13);
+    const newMeeting3 = new NewMeeting("IMAPL", 9);
 
-        meetingService.add(newMeeting1);
-        meetingService.add(newMeeting2);
-        meetingService.add(newMeeting3);
+    meetingService.add(newMeeting1);
+    meetingService.add(newMeeting2);
+    meetingService.add(newMeeting3);
 
-        const meetings = meetingService.getAll();
-        expect(meetings[2].getName()).toBe('IMAPL2');
-    });
+    const meetings = meetingService.getAll();
+    expect(meetings[2].getName()).toBe("IMAPL2");
+  });
 
-    test('Meetings has startTime 9', () => {
-        const newMeeting1 = new NewMeeting('IMAPL2', 12);
-        const newMeeting2 = new NewMeeting('IMAPL', 9);
+  test("Meetings has startTime 9", () => {
+    const newMeeting1 = new NewMeeting("IMAPL2", 12);
+    const newMeeting2 = new NewMeeting("IMAPL", 9);
 
-        meetingService.add(newMeeting1);
-        meetingService.add(newMeeting2);
+    meetingService.add(newMeeting1);
+    meetingService.add(newMeeting2);
 
-        expect(meetingService.hasStartTime(9)).toBe(true);
-    });
+    expect(meetingService.hasStartTime(9, LocalDate.now().dayOfMonth())).toBe(
+      true
+    );
+  });
 
-    test('Meetings has not startTime 9', () => {
-        const newMeeting1 = new NewMeeting('IMAPL2', 12);
-        const newMeeting2 = new NewMeeting('IMAPL', 10);
+  test("Meetings has not startTime 9", () => {
+    const newMeeting1 = new NewMeeting("IMAPL2", 12);
+    const newMeeting2 = new NewMeeting("IMAPL", 10);
 
-        meetingService.add(newMeeting1);
-        meetingService.add(newMeeting2);
+    meetingService.add(newMeeting1);
+    meetingService.add(newMeeting2);
 
-        expect(meetingService.hasStartTime(9)).toBe(false);
-    });
-
-    test('Meetings out of working time', () => {
-        const newMeeting1 = new NewMeeting('Wake Up', 7);
-        const newMeeting2 = new NewMeeting('IMAPL', 10);
-
-        meetingService.add(newMeeting1);
-        meetingService.add(newMeeting2);
-
-        expect(meetingService.checkWorkingTime(9)).toBe(true);
-    });
+    expect(meetingService.hasStartTime(9, LocalDate.now().dayOfMonth())).toBe(
+      false
+    );
+  });
 });

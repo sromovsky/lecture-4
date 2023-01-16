@@ -1,57 +1,51 @@
-import {Meeting} from '../model/Meeting';
-import {NewMeeting} from '../model/NewMeeting';
-import {TimeInterval} from '../model/TimeInterval';
-import {LocalTime} from '@js-joda/core';
-import {BLOCK_TIME_MINUTES, WORKING_TIME_FROM, WORKING_TIME_TO} from '../const/time.cont';
+import { Meeting } from "../model/Meeting";
+import { NewMeeting } from "../model/NewMeeting";
+import { TimeInterval } from "../model/TimeInterval";
+import { LocalTime } from "@js-joda/core";
+import { BLOCK_TIME_MINUTES } from "../const/time.cont";
 
 export class MeetingService {
-    meetingStorage: Meeting[];
+  meetingStorage: Meeting[];
 
-    constructor() {
-        this.meetingStorage = [];
-    }
+  constructor() {
+    this.meetingStorage = [];
+  }
 
-    getAll(): Meeting[] {
-        return this.meetingStorage.sort((a, b) => {
-            return a.getSecondsFromMidnight() - b.getSecondsFromMidnight();
-        });
-    }
+  getAll(): Meeting[] {
+    return this.meetingStorage.sort((a, b) => {
+      return a.getSecondsFromMidnight() - b.getSecondsFromMidnight();
+    });
+  }
 
-    add(newMeeting: NewMeeting): number {
-        const from = LocalTime.of(newMeeting.getStart());
-        const to = from.plusMinutes(BLOCK_TIME_MINUTES);
-        const interval = new TimeInterval(from, to);
-        const id = this.meetingStorage.length + 1;
-        const meeting = new Meeting(id, newMeeting.getName(), interval);
-        this.meetingStorage.push(meeting);
-        return meeting.getId();
-    }
+  getAllForDay(day: string) {
+    return this.meetingStorage.filter(
+      (meeting) => meeting.getDate().dayOfMonth() === parseInt(day, 10)
+    );
+  }
 
-    hasStartTime(startTime: number): boolean {
-        let match = false;
-        this.meetingStorage.forEach(meeting => {
-            if (meeting.getInterval().getFrom().hour() === startTime) {
-                match = true;
-            }
-        });
-        return match;
-    }
+  add(newMeeting: NewMeeting): number {
+    const from = LocalTime.of(newMeeting.getStart());
+    const to = from.plusMinutes(BLOCK_TIME_MINUTES);
+    const interval = new TimeInterval(from, to);
+    const id = this.meetingStorage.length + 1;
+    const meeting = new Meeting(
+      id,
+      newMeeting.getName(),
+      interval,
+      newMeeting.getDate()
+    );
+    this.meetingStorage.push(meeting);
+    return meeting.getId();
+  }
 
-    freeMeetingTimes(): number[] {
-        const result: number[] = [];
-        for (let hour = WORKING_TIME_FROM; hour < WORKING_TIME_TO; hour++) {
-            if (!this.hasStartTime(hour)) {
-                result.push(hour);
-            }
-        }
-        return result;
-    }
+  hasStartTime(startTime: number, day: number): boolean {
+    let match = false;
+    this.meetingStorage.forEach((meeting) => {
+      if (meeting.getDate().dayOfMonth() !== day) return;
+      if (meeting.getInterval().getFrom().hour() != startTime) return;
 
-    checkWorkingTime(startTime: number): boolean {
-        let match = true;
-        if(startTime < WORKING_TIME_FROM || startTime > (WORKING_TIME_TO - 1)){
-            match = false;
-        }
-        return match;
-    }
+      match = true;
+    });
+    return match;
+  }
 }
