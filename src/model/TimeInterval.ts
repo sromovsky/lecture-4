@@ -1,15 +1,15 @@
-import {LocalTime} from '@js-joda/core';
+import { LocalTime } from "@js-joda/core";
 
 export class TimeInterval {
-    private from: LocalTime;
-    private to: LocalTime
+  private from: LocalTime;
+  private to: LocalTime;
 
-    constructor(from: LocalTime, to: LocalTime) {
-        this.from = from;
-        this.to = to;
-    }
+  constructor(from: LocalTime, to: LocalTime) {
+    this.from = from;
+    this.to = to;
+  }
 
-    getFrom(): LocalTime {
-        return this.from;
-    }
+  getFrom(): LocalTime {
+    return this.from;
+  }
 }
